@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🐱 Cat ToDo Lists</title>
+    <style>
+        body { 
+            font-family: 'Comic Sans MS', cursive; 
+            margin: 0; 
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        .header { 
+            text-align: center; 
+            color: #333; 
+            margin-bottom: 30px;
+        }
+        .user-selector {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 15px;
+        }
+        .todo-list {
+            background: rgba(255,255,255,0.8);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        .todo-item {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #ff6b6b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .user-btn {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #4ecdc4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .user-btn:hover { background: #45b7aa; }
+        .flag { 
+            background: #28a745; 
+            color: white; 
+            padding: 15px; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>
+    <script>
+        console.log("🐱 Meow! Welcome to Cat ToDo Lists!");
+        console.log("🕵️ Psst... try changing the user_id in the URL to see other cats' todos!");
+        console.log("🎭 Hint: user_id=2 might have something interesting...");
+        console.log("🐾 IDOR Alert: Insecure Direct Object Reference detected!");
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐱 Cat ToDo Lists</h1>
+            <p><strong>"Even cats need to stay organized... or do they?"</strong></p>
+            <p>🎬 <em>"I'm not lazy, I'm just conserving energy!"</em> - Every cat ever</p>
+        </div>
+        
+        <div class="user-selector">
+            <h3>Select a Cat User:</h3>
+            <button class="user-btn" onclick="loadUser(1)">🐱 Whiskers (User 1)</button>
+            <button class="user-btn" onclick="loadUser(2)">🙈 Secret Cat (User 2)</button>
+            <button class="user-btn" onclick="loadUser(3)">🐾 Mittens (User 3)</button>
+        </div>
+        
+        <div class="todo-list" id="todoList">
+            <p>Select a cat user to see their ToDo list!</p>
+        </div>
+    </div>
+
+    <script>
+        const users = {
+            1: {
+                name: "Whiskers",
+                todos: [
+                    "🥛 Demand fresh milk",
+                    "😴 Sleep for 16 hours",
+                    "🐭 Chase that red dot",
+                    "🗣️ Meow at 3 AM for no reason",
+                    "📦 Knock things off the table"
+                ]
+            },
+            2: {
+                name: "Secret Cat",
+                todos: [
+                    "🔒 Hide the secret flag",
+                    "🎯 Flag: nulleec{1d0r_4lw4ys_h1dd3n}",
+                    "🕵️ Make sure humans don't find my secrets",
+                    "🐾 Leave mysterious paw prints everywhere",
+                    "😸 Act innocent when caught"
+                ]
+            },
+            3: {
+                name: "Mittens",
+                todos: [
+                    "🧶 Tangle all the yarn",
+                    "🌱 Eat some grass (then throw up)",
+                    "🏠 Find the warmest spot in the house",
+                    "👀 Stare at absolutely nothing",
+                    "❤️ Ignore humans when they want attention"
+                ]
+            }
+        };
+
+        function loadUser(userId) {
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('user_id', userId);
+            window.location.search = urlParams.toString();
+        }
+
+        function displayTodos() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = parseInt(urlParams.get('user_id')) || 1;
+            const user = users[userId];
+            
+            if (!user) {
+                document.getElementById('todoList').innerHTML = `
+                    <h3>🚫 Unknown Cat User</h3>
+                    <p>This cat doesn't exist! Try users 1, 2, or 3.</p>
+                `;
+                return;
+            }
+            
+            let html = `<h3>📝 ${user.name}'s ToDo List</h3>`;
+            user.todos.forEach((todo, index) => {
+                const isFlag = todo.includes('nulleec{');
+                html += `<div class="todo-item ${isFlag ? 'flag' : ''}">
+                    ${todo}
+                </div>`;
+            });
+            
+            document.getElementById('todoList').innerHTML = html;
+        }
+
+        // Load todos on page load
+        displayTodos();
+    </script>
+</body>
+</html>

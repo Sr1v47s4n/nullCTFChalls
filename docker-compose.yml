@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  # Challenge 1: Flask SSRF
+  flask-ssrf:
+    build: ./challenges/flask-ssrf
+    ports:
+      - "5001:5000"
+    networks:
+      - ctf-network
+
+  # Challenge 2: FastAPI XSS
+  fastapi-xss:
+    build: ./challenges/fastapi-xss
+    ports:
+      - "5002:8000"
+    networks:
+      - ctf-network
+
+  # Challenge 3: JS Todo IDOR
+  js-todo-idor:
+    build: ./challenges/js-todo-idor
+    ports:
+      - "5003:80"
+    networks:
+      - ctf-network
+
+  # Challenge 4: Client-Side Login
+  client-side-login:
+    build: ./challenges/client-side-login
+    ports:
+      - "5004:80"
+    networks:
+      - ctf-network
+
+  # Challenge 5: Telnet Buffer Overflow
+  telnet-bof:
+    build: ./challenges/telnet-bof
+    ports:
+      - "5005:2323"
+    networks:
+      - ctf-network
+
+  # Challenge 6: SQLi Login
+  sqli-login:
+    build: ./challenges/sqli-login
+    ports:
+      - "5006:5000"
+    networks:
+      - ctf-network
+
+  # Challenge 7: Command Injection
+  cmd-injection:
+    build: ./challenges/cmd-injection
+    ports:
+      - "5007:5000"
+    networks:
+      - ctf-network
+
+
+  # Challenge 9: File Upload
+  file-upload:
+    build: ./challenges/file-upload
+    ports:
+      - "5009:5000"
+    networks:
+      - ctf-network
+
+  # Challenge 10: Race Condition (Hard)
+  race-condition:
+    build: ./challenges/race-condition
+    ports:
+      - "5010:5000"
+    networks:
+      - ctf-network
+
+  # Challenge 11: JWT Forgery (Hard)
+  jwt-forgery:
+    build: ./challenges/jwt-forgery
+    ports:
+      - "5011:8000"
+    networks:
+      - ctf-network
+
+  # Nginx Proxy
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - flask-ssrf
+      - fastapi-xss
+      - js-todo-idor
+      - client-side-login
+      - telnet-bof
+      - sqli-login
+      - cmd-injection
+      - basic-crypto
+      - file-upload
+      - race-condition
+      - jwt-forgery
+    networks:
+      - ctf-network
+
+networks:
+  ctf-network:
+    driver: bridge

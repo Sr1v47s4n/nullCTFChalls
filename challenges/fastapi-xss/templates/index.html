@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thanos's Safe Website 💪</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: rgba(255,255,255,0.1); 
+            padding: 30px; 
+            border-radius: 15px; 
+            backdrop-filter: blur(10px);
+        }
+        .thanos-header { text-align: center; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        input[type="text"] { 
+            width: 70%; 
+            padding: 12px; 
+            margin: 10px; 
+            border: none; 
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button { 
+            padding: 12px 24px; 
+            background: #ff6b35; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover { background: #e55a2b; }
+        .result { 
+            margin-top: 20px; 
+            padding: 20px; 
+            background: rgba(255,255,255,0.2); 
+            border-radius: 10px; 
+            border-left: 5px solid #ffd700;
+        }
+        .flag { 
+            background: #28a745; 
+            color: white; 
+            padding: 15px; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+    <script>
+        console.log("🦸‍♂️ Thanos: 'I am inevitable... but XSS is possible!'");
+        console.log("💎 Try entering something more... executable? Like <script>alert('XSS')</script>");
+        console.log("🎭 Fun fact: This site reflects everything you give it!");
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="thanos-header">🦸‍♂️ Thanos's Perfectly Safe Website</h1>
+        <p><strong>This site is so safe, even Thanos can't break it! 😹</strong></p>
+        <p>Or can he? *snap* 👌</p>
+        
+        <form method="GET">
+            <input type="text" name="name" placeholder="Enter your name (safely!)" value="{{ name }}">
+            <button type="submit">Submit to Thanos! 💪</button>
+        </form>
+        
+        {% if name %}
+        <div class="result">
+            <h3>🎭 Thanos Says:</h3>
+            <p>Hello, {{ name | safe }}! Welcome to my perfectly balanced website!</p>
+            <p><em>"With great power comes great responsibility... but not great security!"</em></p>
+        </div>
+        {% endif %}
+        
+        {% if flag %}
+        <div class="flag">
+            🎉 BOOM! You snapped the security! 💥<br>
+            Flag: {{ flag }}
+        </div>
+        {% endif %}
+        
+        <div style="margin-top: 30px; font-size: 14px; opacity: 0.8;">
+            <p>🎬 <em>"Reality can be whatever I want... including this input field!"</em> - Thanos, probably</p>
+        </div>
+    </div>
+</body>
+</html>

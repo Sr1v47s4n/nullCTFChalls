@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🎬 Hollywood Admin Login</title>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container { 
+            background: rgba(255,255,255,0.1); 
+            padding: 40px; 
+            border-radius: 20px; 
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            text-align: center;
+            min-width: 400px;
+        }
+        .hollywood-header { 
+            color: #ffd700; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+        input[type="text"], input[type="password"] { 
+            width: 80%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border: none; 
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.9);
+        }
+        .login-btn { 
+            padding: 15px 30px; 
+            background: #e50914; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 88%;
+        }
+        .login-btn:hover { background: #c40812; }
+        .user-info {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        .flag { 
+            background: #28a745; 
+            color: white; 
+            padding: 20px; 
+            border-radius: 15px; 
+            font-weight: bold; 
+            margin-top: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #28a745; }
+            to { box-shadow: 0 0 40px #28a745, 0 0 60px #28a745; }
+        }
+    </style>
+    <script>
+        console.log("🎬 Welcome to Hollywood's most secure login!");
+        console.log("🕵️ Hint: Sometimes the client knows more than it should...");
+        console.log("👨‍💻 Pro tip: Check the Network tab after login and modify the response!");
+        console.log("🎭 The user_type field might be interesting to change...");
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="hollywood-header">
+            <h1>🎬 Hollywood Admin Portal</h1>
+            <p><strong>"Access granted... but are you really admin?"</strong></p>
+        </div>
+        
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" value="" required>
+            <input type="password" id="password" placeholder="Password" value="" required>
+            <button type="submit" class="login-btn">🎭 Login to Hollywood!</button>
+        </form>
+        
+        <div id="userInfo" class="user-info" style="display: none;">
+            <h3>🎪 User Information</h3>
+            <p><strong>Username:</strong> <span id="displayUsername"></span></p>
+            <p><strong>User Type:</strong> <span id="displayUserType"></span></p>
+            <p><strong>Status:</strong> <span id="displayStatus"></span></p>
+            
+            <div id="flagContainer" style="display: none;">
+                <div class="flag">
+                    🎉 Congratulations! You've become admin!<br>
+                    🏆 Flag: nulleec{cl13nt_s1d3_ch3at_w1ns}
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; font-size: 14px; opacity: 0.8;">
+            <p>🎬 <em>"In Hollywood, you can be anything... even admin!"</em></p>
+            <p>🔧 Try: admin/password123 or guest/guest</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simulate server authentication
+            let userType = 'guest';
+            let status = 'authenticated';
+            
+            // Simple credential check
+            if ((username === 'admin' && password === 'password123') || 
+                (username === 'guest' && password === 'guest') ||
+                (username && password)) {
+                
+                // This response can be intercepted and modified!
+                const response = {
+                    success: true,
+                    username: username,
+                    user_type: userType, // This is what attackers should modify to 'admin'
+                    status: status,
+                    message: 'Login successful!'
+                };
+                
+                // Display user info
+                document.getElementById('displayUsername').textContent = response.username;
+                document.getElementById('displayUserType').textContent = response.user_type;
+                document.getElementById('displayStatus').textContent = response.status;
+                document.getElementById('userInfo').style.display = 'block';
+                
+                // Check if user became admin (through response manipulation)
+                if (response.user_type === 'admin') {
+                    document.getElementById('flagContainer').style.display = 'block';
+                    console.log('🎉 Admin access detected! Flag revealed!');
+                } else {
+                    console.log('🔒 Only guest access. Try becoming admin by modifying the response object!');
+                    console.log('💡 Hint: Set response.user_type = "admin" in the console!');
+                }
+                
+                // Make the response object available for manipulation
+                window.loginResponse = response;
+                console.log('📡 Login response object available as window.loginResponse');
+                console.log('🛠️ Try: window.loginResponse.user_type = "admin"; then click anywhere to refresh');
+                
+            } else {
+                alert('🚫 Invalid credentials! Try admin/password123 or guest/guest');
+            }
+        });
+        
+        // Listen for clicks to refresh the display (after response manipulation)
+        document.addEventListener('click', function() {
+            if (window.loginResponse && window.loginResponse.user_type === 'admin') {
+                document.getElementById('displayUserType').textContent = 'admin';
+                document.getElementById('flagContainer').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
