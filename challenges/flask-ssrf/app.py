@@ -12,7 +12,8 @@ with open('/tmp/internal/flag.txt', 'w') as f:
 
 @app.route('/')
 def index():
-    return render_template_string('''
+    return render_template_string(
+        """
     <!DOCTYPE html>
     <html>
     <head>
@@ -41,18 +42,12 @@ def index():
                 <button type="submit">Fetch Like a Cat! 🐾</button>
             </form>
             
-            <div style="margin-top: 30px;">
-                <h3>🎭 Other Cat Services:</h3>
-                <ul>
-                    <li><a href="/status">Server Status</a></li>
-                    <li><a href="/about">About Cats</a></li>
-                    <li><a href="/meme">Cat Meme</a></li>
-                </ul>
-            </div>
+            
         </div>
     </body>
     </html>
-    ''')
+    """
+    )
 
 @app.route('/fetch', methods=['POST'])
 def fetch_url():
