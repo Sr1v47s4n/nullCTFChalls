@@ -37,7 +37,7 @@ def index():
             <p><strong>Cats don't allow outsiders, but maybe insiders can sneak in 🐱</strong></p>
             <p>This service fetches URLs for you! Just like how cats fetch... wait, cats don't fetch. Anyway...</p>
             
-            <form method="POST" action="/fetch">
+            <form method="POST" action="/flask-ssrf/fetch">
                 <input type="url" name="url" placeholder="Enter a URL to fetch" required>
                 <button type="submit">Fetch Like a Cat! 🐾</button>
             </form>
