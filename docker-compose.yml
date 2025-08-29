@@ -95,7 +95,6 @@ services:
       - telnet-bof
       - sqli-login
       - cmd-injection
-      - basic-crypto
       - file-upload
       - race-condition
       - jwt-forgery
