@@ -130,18 +130,18 @@ async def login(username: str = Form(...), password: str = Form(...)):
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard(request: Request):
     token = request.cookies.get("jwt_token")
-    
+
     if not token:
         return RedirectResponse(url="/")
-    
+
     payload = verify_jwt_token(token)
-    
+
     if not payload:
         return RedirectResponse(url="/")
-    
+
     username = payload.get("username")
     role = payload.get("role")
-    
+
     flag_content = ""
     if role == "admin":
         flag_content = '''
@@ -150,8 +150,19 @@ async def dashboard(request: Request):
             <p><strong>nulleec{jwt_f0rg3ry_m45t3r}</strong></p>
         </div>
         '''
-    
-    return f'''
+
+    admin_hint = (
+        ""
+        if role == "admin"
+        else """
+    <div style="text-align: center; margin-top: 30px;">
+        <p>🔒 You need admin role to see the flag!</p>
+        <p>💡 Try forging a JWT token with role</p>
+    </div>
+    """
+    )
+
+    return f"""
     <!DOCTYPE html>
     <html>
     <head>
@@ -216,12 +227,7 @@ async def dashboard(request: Request):
                 <p style="font-size: 12px; opacity: 0.8;">Copy this token to jwt.io to decode and modify it!</p>
             </div>
             
-            {'' if role == 'admin' else '''
-            <div style="text-align: center; margin-top: 30px;">
-                <p>🔒 You need admin role to see the flag!</p>
-                <p>💡 Try forging a JWT token with role = "admin"</p>
-            </div>
-            '''}
+            {admin_hint}
             
             <div style="text-align: center; margin-top: 30px;">
                 <a href="/logout" style="color: #ff6b35; text-decoration: none; font-weight: bold;">🚪 Logout</a>
@@ -229,7 +235,7 @@ async def dashboard(request: Request):
         </div>
     </body>
     </html>
-    '''
+    """
 
 @app.get("/logout")
 async def logout():
