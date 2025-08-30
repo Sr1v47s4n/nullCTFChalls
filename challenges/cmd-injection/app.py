@@ -75,7 +75,7 @@ def index():
             <p><strong>"Ping like a cat - fast and precise!"</strong></p>
             <p>🎬 <em>"I can ping anything... even other commands!"</em> - Hacker Cat</p>
             
-            <form method="POST" action="/ping">
+            <form method="POST" action="/cmd-injection/ping">
                 <input type="text" name="ip" placeholder="Enter IP address (e.g., 127.0.0.1)" required>
                 <br>
                 <button type="submit" class="ping-btn">🐾 Ping It!</button>

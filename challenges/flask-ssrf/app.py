@@ -67,7 +67,7 @@ def fetch_url():
                 <h3>Content:</h3>
                 <pre style="white-space: pre-wrap;">{{ content }}</pre>
             </div>
-            <a href="/">← Back to Cat Fetcher</a>
+            <a href="/flask-ssrf/">← Back to Cat Fetcher</a>
         </body>
         </html>
         ''', url=url, status_code=response.status_code, content=response.text[:2000])

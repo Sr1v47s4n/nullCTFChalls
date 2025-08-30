@@ -89,7 +89,7 @@ def index():
             <p style="text-align: center;"><strong>"Share your cutest cat photos!"</strong></p>
             <p style="text-align: center;">🎬 <em>"Every photo tells a story... some tell secrets!"</em></p>
             
-            <form method="POST" action="/upload" enctype="multipart/form-data">
+            <form method="POST" action="/file-upload/upload" enctype="multipart/form-data">
                 <div class="upload-area">
                     <h3>🐱 Upload Your Cat Photo</h3>
                     <p>Accepted formats: JPG, JPEG, PNG, GIF</p>

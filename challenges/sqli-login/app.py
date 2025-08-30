@@ -88,7 +88,7 @@ def index():
                 <p>🎬 <em>"Purrfectly secure since 1337!"</em></p>
             </div>
             
-            <form method="POST" action="/login">
+            <form method="POST" action="/sqli-login/login">
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <button type="submit" class="login-btn">🐾 Login to Cat Bank</button>
@@ -133,7 +133,7 @@ def login():
                         </div>
                         <p>🐱 You've successfully performed SQL injection!</p>
                         <p>🎭 Even cats can be hackers!</p>
-                        <a href="/" style="color: #ff6b6b;">← Back to Login</a>
+                        <a href="/sqli-login/" style="color: #ff6b6b;">← Back to Login</a>
                     </div>
                 </body>
                 </html>
@@ -146,7 +146,7 @@ def login():
                         <h1>🐱 Welcome {{ username }}!</h1>
                         <p>You're logged in as a regular cat user.</p>
                         <p>🔒 No admin privileges = No flag for you!</p>
-                        <a href="/" style="color: #ff6b6b;">← Back to Login</a>
+                        <a href="/sqli-login/" style="color: #ff6b6b;">← Back to Login</a>
                     </div>
                 </body>
                 </html>
@@ -158,7 +158,7 @@ def login():
                 <div style="background: rgba(255,255,255,0.9); padding: 40px; border-radius: 20px;">
                     <h1>🚫 Login Failed!</h1>
                     <p>Invalid credentials, silly cat!</p>
-                    <a href="/" style="color: #ff6b6b;">← Try Again</a>
+                    <a href="/sqli-login/" style="color: #ff6b6b;">← Try Again</a>
                 </div>
             </body>
             </html>

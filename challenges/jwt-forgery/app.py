@@ -32,7 +32,7 @@ def verify_jwt_token(token: str):
 
 @app.get("/", response_class=HTMLResponse)
 async def index():
-    return '''
+    return """
     <!DOCTYPE html>
     <html>
     <head>
@@ -99,7 +99,7 @@ async def index():
                 <p>🎬 <em>"Our tokens are unbreakable... or are they?"</em></p>
             </div>
             
-            <form method="POST" action="/login">
+            <form method="POST" action="/jwt-forgery/login">
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <button type="submit" class="login-btn">🐾 Login with JWT!</button>
@@ -112,18 +112,18 @@ async def index():
         </div>
     </body>
     </html>
-    '''
+    """
 
 @app.post("/login")
 async def login(username: str = Form(...), password: str = Form(...)):
     user = users_db.get(username)
-    
+
     if not user or user["password"] != password:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    
+
     token = create_jwt_token(username, user["role"])
-    
-    response = RedirectResponse(url="/dashboard", status_code=302)
+
+    response = RedirectResponse(url="/jwt-forgery/dashboard", status_code=302)
     response.set_cookie(key="jwt_token", value=token, httponly=True)
     return response
 
@@ -132,12 +132,12 @@ async def dashboard(request: Request):
     token = request.cookies.get("jwt_token")
 
     if not token:
-        return RedirectResponse(url="/")
+        return RedirectResponse(url="/jwt-forgery/")
 
     payload = verify_jwt_token(token)
 
     if not payload:
-        return RedirectResponse(url="/")
+        return RedirectResponse(url="/jwt-forgery/")
 
     username = payload.get("username")
     role = payload.get("role")
@@ -230,7 +230,7 @@ async def dashboard(request: Request):
             {admin_hint}
             
             <div style="text-align: center; margin-top: 30px;">
-                <a href="/logout" style="color: #ff6b35; text-decoration: none; font-weight: bold;">🚪 Logout</a>
+                <a href="/jwt-forgery/logout" style="color: #ff6b35; text-decoration: none; font-weight: bold;">🚪 Logout</a>
             </div>
         </div>
     </body>
@@ -239,7 +239,7 @@ async def dashboard(request: Request):
 
 @app.get("/logout")
 async def logout():
-    response = RedirectResponse(url="/")
+    response = RedirectResponse(url="/jwt-forgery/")
     response.delete_cookie("jwt_token")
     return response
 

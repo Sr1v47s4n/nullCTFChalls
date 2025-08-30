@@ -109,7 +109,7 @@ def index():
                 <h3>💸 Transfer Money</h3>
                 <p>Transfer money to account: <strong>savings_account</strong></p>
                 
-                <form method="POST" action="/transfer" id="transferForm">
+                <form method="POST" action="/race-condition/transfer" id="transferForm">
                     <input type="number" name="amount" placeholder="Amount" value="100" min="1" max="1000" required>
                     <br>
                     <button type="submit" class="transfer-btn">💸 Transfer Money</button>
@@ -140,7 +140,7 @@ def index():
                     formData.append('amount', amount);
                     
                     promises.push(
-                        fetch('/transfer', {
+                        fetch('/race-condition/transfer', {
                             method: 'POST',
                             body: formData
                         })
